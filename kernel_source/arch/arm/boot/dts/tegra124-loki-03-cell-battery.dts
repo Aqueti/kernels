@@ -1,5 +1,0 @@
-#include "tegra124-loki-common.dtsi"
-
-/ {
-	nvidia,dtsfilename = __FILE__;
-};

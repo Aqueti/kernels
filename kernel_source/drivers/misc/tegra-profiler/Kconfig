@@ -1,5 +1,0 @@
-config TEGRA_PROFILER
-	bool "Enable Tegra profiler"
-	depends on ARCH_TEGRA
-	help
-	  This option enables Tegra profiler

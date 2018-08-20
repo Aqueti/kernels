@@ -1,0 +1,29 @@
+Date:07/05/2018
+Author: Sumeet Kamat
+Document: Compiling the Kernel and the DTB for IMX 274 with the Leopard Imaging Board for Tegra-TX1 with Jetpack 3.1.
+
+Note: This document assumes you have a Jetpack-3.1 installed for Tegra-TX1 on your 64 bit Ubuntu OS Machine.
+
+1.Create a work folder under /home on your host 64 bit Ubuntu Machine:
+  $ sudo mkdir /home/work
+  $ sudo chown -R <user_name> /home/work
+
+2. Under /usr/src/kernel/kernel-4.4 folder, run:
+  $ make -j4 O=$TEGRA_KERNEL_OUT tegra21_defconfig
+  $ make -j4 O=$TEGRA_KERNEL_OUT zImage
+  $ make -j4 O=$TEGRA_KERNEL_OUT dtbs
+
+ -After this, you will get Image and zImage under /home/work/TX1/kernel/kernel_out/arch/arm64/boot 
+  and tegra210-jetson-tx1-p2597-2180-a01-devkit.dtb under /home/work/TX1/kernel/kernel_out/arch/arm64/boot/dts.
+
+3. Copy the Image and zImage from /home/work/TX1/kernel/kernel_out/arch/arm64/boot of your host 64 bit Ubuntu OS Machine to /boot folder of your NVIDIA tegra.
+
+4. Copy and replace the tegra210-jetson-tx1-p2597-2180-a01-devkit.dtb from /home/work/TX1/kernel/kernel_out/arch/arm64/boot/dts to Linux_for_Tegra/kernel/dtb on your host PC.
+
+5. Under Linux_for_Tegra/ on your host machine, run the following command to flash the device tree blob onto your Tegra:
+  $ sudo ./flash.sh -r -k DTB jetson-tx1 mmcblk0p1
+
+6. Reboot the TX1.
+
+7. Open a terminal and and run the following command to get live video output:
+  $ nvgstcapture-1.0
